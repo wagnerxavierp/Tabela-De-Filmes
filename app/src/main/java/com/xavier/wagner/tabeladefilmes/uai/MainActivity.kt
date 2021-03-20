@@ -1,7 +1,8 @@
-package com.xavier.wagner.tabeladefilmes
+package com.xavier.wagner.tabeladefilmes.uai
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.xavier.wagner.tabeladefilmes.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
