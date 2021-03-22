@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/sobre_nos"
+        android:title="@string/sobre_nos"
+        android:icon="@drawable/about_us_24" />
+</menu>

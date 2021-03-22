@@ -1,36 +1,74 @@
 package com.xavier.wagner.tabeladefilmes.uai
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
 import com.xavier.wagner.tabeladefilmes.R
+import com.xavier.wagner.tabeladefilmes.bases.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.drawer_header.view.*
+import kotlinx.android.synthetic.main.drawer_layout.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        setupToolbar(toolbarMain, "Filmes", false)
-
+        setContentView(R.layout.drawer_layout)
+        setupToolbar(toolbarMain, getString(R.string.filmes), false)
+        initDrawerLayout()
+        setNavigationViewListener()
+        setNavigationHeader()
     }
 
-    private fun setupToolbar(toolbar: Toolbar, title: String, navgationBack: Boolean){
-        toolbar.title = title
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(navgationBack)
+    private fun initDrawerLayout(){
+        val toogle = ActionBarDrawerToggle(
+                this,
+                drawerLayoutMain,
+                toolbarMain,
+                R.string.abrir_drawer,
+                R.string.fechar_drawer
+        )
+        drawerLayoutMain.addDrawerListener(toogle)
+        toogle.syncState()
+    }
+    private fun setNavigationViewListener() {
+        nav_view.setNavigationItemSelectedListener(this)
+    }
+    private fun setNavigationHeader(){
+        val headerView = View.inflate(this, R.layout.drawer_header, null)
+        headerView.nomeUsuarioTEV.text = getString(R.string.nome_do_usuario)
+        nav_view.addHeaderView(headerView)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-            R.id.home -> {
-                this.onBackPressed()
-                return true
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.sobre_nos -> {
+                Toast.makeText(this, "Sobre nós", Toast.LENGTH_LONG).show()
+                drawerLayoutMain.closeDrawer(GravityCompat.START)
+                true
             }
+            else -> true
         }
-        return super.onOptionsItemSelected(item)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflate = menuInflater
+        inflate.inflate(R.menu.menu, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.logout -> {
+                Toast.makeText(this, "Deslogado com sucesso.", Toast.LENGTH_LONG).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 }

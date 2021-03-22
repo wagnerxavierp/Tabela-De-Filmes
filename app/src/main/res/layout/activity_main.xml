@@ -9,10 +9,12 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMain"
         android:background="@color/primary_500"
-        app:titleTextColor="@color/white"
         android:elevation="5dp"
+        app:titleTextColor="@color/white"
+        app:subtitleTextColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

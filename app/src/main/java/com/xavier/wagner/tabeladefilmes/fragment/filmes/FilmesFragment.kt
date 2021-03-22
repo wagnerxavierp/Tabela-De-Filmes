@@ -9,7 +9,7 @@ import com.xavier.wagner.tabeladefilmes.R
 
 class FilmesFragment : Fragment() {
 
-    private lateinit var viewModel: FilmesViewModel
+    //private lateinit var viewModel: FilmesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
