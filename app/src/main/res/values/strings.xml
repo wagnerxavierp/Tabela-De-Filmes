@@ -6,4 +6,6 @@
     <string name="abrir_drawer">Abrir</string>
     <string name="fechar_drawer">Fechar</string>
     <string name="nome_do_usuario">Nome do Usuario</string>
+    <string name="digite_o_nome_do_filme">Digite o nome do filme</string>
+    <string name="todo">TODO</string>
 </resources>

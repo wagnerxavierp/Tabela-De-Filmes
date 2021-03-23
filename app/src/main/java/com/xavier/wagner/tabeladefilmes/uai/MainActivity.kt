@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationView
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.bases.BaseActivity
@@ -16,24 +18,32 @@ import kotlinx.android.synthetic.main.drawer_layout.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.drawer_layout)
-        setupToolbar(toolbarMain, getString(R.string.filmes), false)
+        initNavController()
+        setupToolbar(toolbarWIDGET, getString(R.string.filmes), false)
         initDrawerLayout()
         setNavigationViewListener()
         setNavigationHeader()
     }
 
+    private fun initNavController() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+    }
+
     private fun initDrawerLayout(){
         val toogle = ActionBarDrawerToggle(
                 this,
-                drawerLayoutMain,
-                toolbarMain,
+                drawerLayout,
+                toolbarWIDGET,
                 R.string.abrir_drawer,
                 R.string.fechar_drawer
         )
-        drawerLayoutMain.addDrawerListener(toogle)
+        drawerLayout.addDrawerListener(toogle)
         toogle.syncState()
     }
     private fun setNavigationViewListener() {
@@ -41,7 +51,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
     private fun setNavigationHeader(){
         val headerView = View.inflate(this, R.layout.drawer_header, null)
-        headerView.nomeUsuarioTEV.text = getString(R.string.nome_do_usuario)
+        headerView.nomeUsuarioTEXTVIEW.text = getString(R.string.nome_do_usuario)
         nav_view.addHeaderView(headerView)
     }
 
@@ -49,7 +59,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return when(item.itemId){
             R.id.sobre_nos -> {
                 Toast.makeText(this, "Sobre nós", Toast.LENGTH_LONG).show()
-                drawerLayoutMain.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
             else -> true

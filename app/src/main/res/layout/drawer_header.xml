@@ -7,7 +7,7 @@
     android:background="@color/complementary_200">
 
     <TextView
-        android:id="@+id/nomeUsuarioTEV"
+        android:id="@+id/nomeUsuarioTEXTVIEW"
         tools:text="@string/nome_do_usuario"
         android:textSize="18sp"
         android:layout_margin="32dp"
