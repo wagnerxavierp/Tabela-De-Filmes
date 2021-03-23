@@ -1,20 +1,15 @@
 package com.xavier.wagner.tabeladefilmes.fragment.filmes
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.View.OnTouchListener
-import android.view.ViewGroup
-import android.widget.LinearLayout
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
 import kotlinx.android.synthetic.main.filmes_fragment.*
-import java.security.Provider
 
 
 class FilmesFragment : Fragment() {
@@ -32,23 +27,26 @@ class FilmesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        esconderTeclado()
         setupRecycler()
+        viewModel.buscarListaFilmes()
     }
 
     private fun setupRecycler(){
-        filmesAdapter = FilmesAdapter(
-                listOf(
-                        Filme("Godxila 2"),
-                        Filme("Homem de ferro")
-                )
-        ){ clickItemFilme(it) }
-
+        filmesAdapter = FilmesAdapter{ clickItemFilme(it) }
+        viewModel.listaFilmesLiveData.observe(requireActivity(), {
+            it?.let { filmesAdapter.setItemLista(it) }
+        })
         listaFilmesRECYCLERVIEW.layoutManager = LinearLayoutManager(requireContext())
         listaFilmesRECYCLERVIEW.adapter = filmesAdapter
     }
 
     fun clickItemFilme(filme: Filme){
-        Toast.makeText(requireContext(), filme.nome, Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), filme.nome, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun esconderTeclado(){
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
 }

@@ -58,7 +58,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.sobre_nos -> {
-                Toast.makeText(this, "Sobre nós", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Sobre nós", Toast.LENGTH_SHORT).show()
                 drawerLayout.closeDrawer(GravityCompat.START)
                 true
             }
@@ -74,7 +74,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.logout -> {
-                Toast.makeText(this, "Deslogado com sucesso.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Deslogado com sucesso.", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
