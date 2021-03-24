@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_200</item>
         <item name="colorPrimaryVariant">@color/primary_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/complementary_500</item>
         <item name="colorSecondaryVariant">@color/complementary_500</item>
@@ -12,10 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:tint">@android:color/white</item>
     </style>
 
-    <style name="Theme.TabelaDeFilmes.ImageButton" parent="Widget.AppCompat.ImageButton">
-        <item name="android:tint">@color/white</item>
-        <item name="android:backgroundTint">#323131</item>
-    </style>
 </resources>

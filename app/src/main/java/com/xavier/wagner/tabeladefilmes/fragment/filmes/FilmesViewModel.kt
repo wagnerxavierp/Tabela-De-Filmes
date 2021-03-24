@@ -15,8 +15,12 @@ class FilmesViewModel : ViewModel() {
 
     fun buscarListaFilmes(){
         val listaFilmes = listOf(
-                Filme("Godxila 2"),
-                Filme("Homem de ferro")
+                Filme("Homem de ferro"),
+                Filme("Dinossauro Rex"),
+                Filme("Park Dinos"),
+                Filme("Guardiões da galáxia"),
+                Filme("Comédia"),
+                Filme("Ação")
         )
         _listaFilmes = listaFilmes.toMutableList()
         setListaFilmesLiveData()

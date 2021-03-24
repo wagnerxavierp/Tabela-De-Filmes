@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
@@ -27,9 +28,10 @@ class FilmesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        esconderTeclado()
         setupRecycler()
         viewModel.buscarListaFilmes()
+        buscarFilmeIMAGEBUTTON.setOnClickListener {  }
+        esconderTeclado()
     }
 
     private fun setupRecycler(){
@@ -37,7 +39,7 @@ class FilmesFragment : Fragment() {
         viewModel.listaFilmesLiveData.observe(requireActivity(), {
             it?.let { filmesAdapter.setItemLista(it) }
         })
-        listaFilmesRECYCLERVIEW.layoutManager = LinearLayoutManager(requireContext())
+        listaFilmesRECYCLERVIEW.layoutManager = GridLayoutManager(requireContext(), 2)
         listaFilmesRECYCLERVIEW.adapter = filmesAdapter
     }
 
@@ -46,7 +48,7 @@ class FilmesFragment : Fragment() {
     }
 
     private fun esconderTeclado(){
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
 }
