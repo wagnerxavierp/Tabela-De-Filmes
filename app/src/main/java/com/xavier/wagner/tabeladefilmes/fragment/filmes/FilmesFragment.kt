@@ -9,8 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xavier.wagner.tabeladefilmes.R
+import com.xavier.wagner.tabeladefilmes.data.api.ApiService
+import com.xavier.wagner.tabeladefilmes.data.api.response.FilmesResult
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
 import kotlinx.android.synthetic.main.filmes_fragment.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class FilmesFragment : Fragment() {
@@ -29,10 +34,11 @@ class FilmesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
-        viewModel.buscarListaFilmes()
         buscarFilmeIMAGEBUTTON.setOnClickListener {  }
         esconderTeclado()
+        viewModel.buscarListaFilmes()
     }
+
 
     private fun setupRecycler(){
         filmesAdapter = FilmesAdapter{ clickItemFilme(it) }
