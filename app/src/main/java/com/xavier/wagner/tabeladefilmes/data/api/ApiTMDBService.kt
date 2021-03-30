@@ -3,7 +3,7 @@ package com.xavier.wagner.tabeladefilmes.data.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiService {
+object ApiTMDBService {
 
     var instance: FilmesService =
         Retrofit.Builder()
@@ -12,4 +12,6 @@ object ApiService {
             .build()
             .create(FilmesService::class.java)
 
+    const val KEY = "925073bb4947af33bb76f82ebab486c6"
+    const val LANGUAGE = "pt-BR"
 }

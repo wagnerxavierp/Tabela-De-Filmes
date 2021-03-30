@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
 import kotlinx.android.synthetic.main.item_filme.view.*
@@ -28,7 +29,10 @@ class FilmesAdapter(
     override fun onBindViewHolder(holder: FilmeViewHolder, position: Int) {
         val filme = listaFilmes[position]
         with(holder.itemView){
-            titleTEXTVIEW.text = filme.nome
+            Picasso
+                .get()
+                .load("https://image.tmdb.org/t/p/w342/${filme.poster_path}")
+                .into(posterImageView)
             layoutItemFilme.setOnClickListener { onClick(filme) }
         }
     }

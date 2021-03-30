@@ -1,5 +1,8 @@
 package com.xavier.wagner.tabeladefilmes.data.model
 
-class Filme (val nome: String) {
-
-}
+data class Filme (
+        var id: Int,
+        val title: String,
+        var poster_path: String,
+        var overview: String
+)
