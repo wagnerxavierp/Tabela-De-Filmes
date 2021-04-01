@@ -26,7 +26,7 @@
         android:background="@color/primary_900"
         android:backgroundTint="@color/white"
         android:elevation="15dp"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
