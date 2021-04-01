@@ -5,10 +5,13 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.api.ApiTMDBService
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
+import com.xavier.wagner.tabeladefilmes.uai.MainActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filmes_fragment.*
 
 
@@ -81,7 +84,7 @@ class FilmesFragment : Fragment() {
     }
 
     fun clickItemFilme(filme: Filme){
-        Toast.makeText(requireContext(), filme.title, Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.contaFragment)
     }
 
     private fun esconderTeclado(){

@@ -9,5 +9,38 @@
         android:id="@+id/filmesFragment"
         android:name="com.xavier.wagner.tabeladefilmes.fragment.filmes.FilmesFragment"
         android:label="Filmes"
-        tools:layout="@layout/filmes_fragment" />
+        tools:layout="@layout/filmes_fragment" >
+        <action
+            android:id="@+id/action_filmesFragment_to_contaFragment"
+            app:destination="@id/contaFragment" />
+        <action
+            android:id="@+id/action_filmesFragment_to_pesquisarFragment"
+            app:destination="@id/pesquisarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contaFragment"
+        android:name="com.xavier.wagner.tabeladefilmes.fragment.conta.ContaFragment"
+        android:label="conta_fragment"
+        tools:layout="@layout/conta_fragment" >
+        <action
+            android:id="@+id/action_contaFragment_to_pesquisarFragment"
+            app:destination="@id/pesquisarFragment" />
+        <action
+            android:id="@+id/action_contaFragment_to_filmesFragment"
+            app:destination="@id/filmesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pesquisarFragment"
+        android:name="com.xavier.wagner.tabeladefilmes.fragment.pesquisar.PesquisarFragment"
+        android:label="pesquisar_fragment"
+        tools:layout="@layout/pesquisar_fragment" >
+        <action
+            android:id="@+id/action_pesquisarFragment_to_contaFragment"
+            app:destination="@id/contaFragment" />
+        <action
+            android:id="@+id/action_pesquisarFragment_to_filmesFragment"
+            app:destination="@id/filmesFragment" />
+    </fragment>
+
+
 </navigation>
