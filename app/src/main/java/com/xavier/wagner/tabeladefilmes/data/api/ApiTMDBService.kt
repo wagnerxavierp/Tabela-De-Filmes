@@ -14,4 +14,11 @@ object ApiTMDBService {
 
     const val KEY = "925073bb4947af33bb76f82ebab486c6"
     const val LANGUAGE = "pt-BR"
+
+    object TypeFilmes{
+        const val POPULAR = "popular"
+        const val PROXIMOS = "upcoming"
+        const val MAIS_VOTADOS = "top_rated"
+    }
+
 }

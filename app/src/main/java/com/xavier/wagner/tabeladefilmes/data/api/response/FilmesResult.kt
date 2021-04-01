@@ -12,7 +12,10 @@ class FilmesResult(
                     id = it.id,
                     title = it.title,
                     poster_path = it.poster_path,
-                    overview = it.overview
+                    overview = it.overview,
+                    backdrop_path = it.backdrop_path,
+                    genre_ids = it.genre_ids,
+                    popularity = it.popularity
             ))
         }
         return lista

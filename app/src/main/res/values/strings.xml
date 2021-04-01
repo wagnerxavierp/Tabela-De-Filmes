@@ -8,4 +8,7 @@
     <string name="nome_do_usuario">Nome do Usuario</string>
     <string name="digite_o_nome_do_filme">Digite o nome do filme</string>
     <string name="todo">TODO</string>
+    <string name="populares">Populares</string>
+    <string name="proximos_lancamentos">Próximos lançamentos</string>
+    <string name="mais_votados">Mais votados</string>
 </resources>

@@ -31,7 +31,7 @@ class FilmesAdapter(
         with(holder.itemView){
             Picasso
                 .get()
-                .load("https://image.tmdb.org/t/p/w342/${filme.poster_path}")
+                .load("https://image.tmdb.org/t/p/w154/${filme.poster_path}")
                 .into(posterImageView)
             layoutItemFilme.setOnClickListener { onClick(filme) }
         }
