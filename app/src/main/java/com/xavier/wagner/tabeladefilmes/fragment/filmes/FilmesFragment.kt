@@ -5,13 +5,11 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.picasso.Picasso
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.api.ApiTMDBService
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
-import com.xavier.wagner.tabeladefilmes.uai.MainActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filmes_fragment.*
 
 
@@ -20,7 +18,7 @@ class FilmesFragment : Fragment() {
     private lateinit var viewModel: FilmesViewModel
     private lateinit var filmesPopularesAdapter: FilmesAdapter
     private lateinit var filmesProximosAdapter: FilmesAdapter
-    private lateinit var filmesMaisVotadosAdapter: FilmesAdapter
+    private lateinit var listaFilmesCarousel: MutableList<Filme>
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -34,22 +32,28 @@ class FilmesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerFilmesPopulares()
         setupRecyclerFilmesProximos()
-        setupRecyclerFilmesMainsVotados()
 
         esconderTeclado()
 
         viewModel.buscarListaFilmes(ApiTMDBService.TypeFilmes.POPULAR, ApiTMDBService.KEY, ApiTMDBService.LANGUAGE, 1)
         viewModel.buscarListaFilmes(ApiTMDBService.TypeFilmes.PROXIMOS, ApiTMDBService.KEY, ApiTMDBService.LANGUAGE, 1)
-        viewModel.buscarListaFilmes(ApiTMDBService.TypeFilmes.MAIS_VOTADOS, ApiTMDBService.KEY, ApiTMDBService.LANGUAGE, 1)
+        viewModel.buscarListaFilmesCarousel(
+            ApiTMDBService.TypeFilmes.MAIS_VOTADOS,
+            ApiTMDBService.KEY,
+            ApiTMDBService.LANGUAGE,
+            1
+        ){
+            setupCarousel(it)
+        }
     }
 
 
     private fun setupRecyclerFilmesPopulares(){
         filmesPopularesAdapter = FilmesAdapter{ clickItemFilme(it) }
 
-        listaFilmesPopularesRECYCLERVIEW.layoutManager =
+        filmesPopularesRecycler.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        listaFilmesPopularesRECYCLERVIEW.adapter =
+        filmesPopularesRecycler.adapter =
                 filmesPopularesAdapter
 
         viewModel.listaFilmesPopularesLiveData.observe(requireActivity(), {
@@ -60,9 +64,9 @@ class FilmesFragment : Fragment() {
     private fun setupRecyclerFilmesProximos(){
         filmesProximosAdapter = FilmesAdapter{ clickItemFilme(it) }
 
-        listaFilmesProximosRECYCLERVIEW.layoutManager =
+        filmesProximosRecycler.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        listaFilmesProximosRECYCLERVIEW.adapter =
+        filmesProximosRecycler.adapter =
                 filmesProximosAdapter
 
         viewModel.listaFilmesProximosLiveData.observe(requireActivity(), {
@@ -70,21 +74,25 @@ class FilmesFragment : Fragment() {
         })
     }
 
-    private fun setupRecyclerFilmesMainsVotados(){
-        filmesMaisVotadosAdapter = FilmesAdapter{ clickItemFilme(it) }
-
-        listaFilmesMaisVotadosRECYCLERVIEW.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        listaFilmesMaisVotadosRECYCLERVIEW.adapter =
-                filmesMaisVotadosAdapter
-
-        viewModel.listaFilmesMaisVotadosLiveData.observe(requireActivity(), {
-            it?.let { filmesMaisVotadosAdapter.setItemLista(it) }
-        })
+    private fun setupCarousel(filmes: MutableList<Filme>){
+        listaFilmesCarousel = if(filmes.size >= 6) filmes.subList(0, 6) else filmes
+        carouselFilmes.setImageListener { position, imageView ->
+            Picasso
+                .get()
+                .load("https://image.tmdb.org/t/p/w780/${listaFilmesCarousel.get(position).backdrop_path}")
+                .into(imageView)
+        }
+        carouselFilmes.pageCount = listaFilmesCarousel.size
+        carouselFilmes.setImageClickListener { position ->
+            clickItemFilme(listaFilmesCarousel.get(position))
+        }
     }
 
     fun clickItemFilme(filme: Filme){
-        findNavController().navigate(R.id.contaFragment)
+        val bundle = Bundle()
+        bundle.putSerializable("filme", filme)
+        //findNavController().navigate(R.id.contaFragment, bundle)
+        Toast.makeText(requireContext(), filme.title, Toast.LENGTH_SHORT).show()
     }
 
     private fun esconderTeclado(){

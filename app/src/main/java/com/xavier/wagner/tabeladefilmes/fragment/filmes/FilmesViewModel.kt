@@ -17,9 +17,6 @@ class FilmesViewModel : ViewModel() {
     val listaFilmesProximosLiveData = MutableLiveData<MutableList<Filme>>().apply { value = _listaFilmesProximos }
     private var _listaFilmesProximos = mutableListOf<Filme>()
 
-    val listaFilmesMaisVotadosLiveData = MutableLiveData<MutableList<Filme>>().apply { value = _listaFilmesMaisVotados }
-    private var _listaFilmesMaisVotados = mutableListOf<Filme>()
-
     fun buscarListaFilmes(type: String ,api_key: String, language: String, page: Int){
         ApiTMDBService.instance
             .obterFilmes(type ,api_key, language, page)
@@ -35,9 +32,6 @@ class FilmesViewModel : ViewModel() {
                             }else if(type.equals(ApiTMDBService.TypeFilmes.PROXIMOS)){
                                 _listaFilmesProximos = it.toFilmes() as MutableList<Filme>
                                 listaFilmesProximosLiveData.value = _listaFilmesProximos
-                            }else if(type.equals(ApiTMDBService.TypeFilmes.MAIS_VOTADOS)){
-                                _listaFilmesMaisVotados = it.toFilmes() as MutableList<Filme>
-                                listaFilmesMaisVotadosLiveData.value = _listaFilmesMaisVotados
                             }
                         }
                     }
@@ -48,4 +42,22 @@ class FilmesViewModel : ViewModel() {
 
     }
 
+
+    fun buscarListaFilmesCarousel(type: String ,api_key: String, language: String, page: Int, resultCallback : (MutableList<Filme>) -> Unit){
+        ApiTMDBService.instance
+            .obterFilmes(type ,api_key, language, page)
+            .enqueue(object : Callback<FilmesResult> {
+                override fun onResponse(
+                    call: Call<FilmesResult>, response: Response<FilmesResult>
+                ) {
+                    if (response.isSuccessful){
+                        response.body()?.let {
+                            resultCallback(it.toFilmes() as MutableList<Filme>)
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<FilmesResult>, t: Throwable) {
+                }
+            })
+    }
 }

@@ -10,17 +10,27 @@ import com.xavier.wagner.tabeladefilmes.data.model.Filme
 import kotlinx.android.synthetic.main.item_filme.view.*
 
 class FilmesAdapter(
-        private var listaFilmes: List<Filme> = listOf(),
         private val onClick: ((Filme) -> Unit)
 ) : RecyclerView.Adapter<FilmeViewHolder>() {
 
+    private var listaFilmes: List<Filme>
+
+    init {
+        listaFilmes = listOf()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_filme, parent, false)
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_filme, parent, false)
         return FilmeViewHolder(view)
     }
 
     fun setItemLista(listaFilmes: List<Filme>){
-        this.listaFilmes = listaFilmes
+        if (listaFilmes.size > 5)
+            this.listaFilmes = listaFilmes.subList(listaFilmes.size - 5, listaFilmes.size)
+        else
+            this.listaFilmes = listaFilmes
+
         this.notifyDataSetChanged()
     }
 
