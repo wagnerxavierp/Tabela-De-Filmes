@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tabela De Filmes</string>
+    <string name="app_name">TD Filmes</string>
     <string name="sair">Sair</string>
     <string name="filmes">Filmes</string>
     <string name="sobre_nos">Sobre nós</string>
@@ -11,4 +11,5 @@
     <string name="populares">Populares</string>
     <string name="proximos_lancamentos">Próximos lançamentos</string>
     <string name="mais_votados">Mais votados</string>
+    <string name="td_filmes">TD Filmes</string>
 </resources>

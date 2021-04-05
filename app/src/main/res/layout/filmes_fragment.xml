@@ -27,59 +27,51 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/filmesPopularesTextView"
+        <ImageView
+            android:id="@+id/logo"
             android:layout_width="wrap_content"
-            android:text="@string/populares"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="26dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="26dp"
+            android:src="@drawable/logo2"
             app:layout_constraintTop_toBottomOf="@+id/carouselFilmes"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/td_filmes" />
+
+        <TextView
+            android:id="@+id/filmesPopularesTextView"
+            android:text="@string/populares"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/titulo_categoria_filmes"
             />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/filmesPopularesRecycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filmesPopularesTextView"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_filme"
-            tools:orientation="horizontal" />
+            tools:orientation="horizontal"
+            style="@style/recycler_filmes" />
 
         <TextView
             android:id="@+id/filmesProximosTextView"
-            android:layout_width="wrap_content"
             android:text="@string/proximos_lancamentos"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="26dp"
-            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/filmesPopularesRecycler"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            style="@style/titulo_categoria_filmes" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/filmesProximosRecycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/filmesProximosTextView"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_filme"
-            tools:orientation="horizontal" />
+            tools:orientation="horizontal"
+            style="@style/recycler_filmes"/>
 
 
 
