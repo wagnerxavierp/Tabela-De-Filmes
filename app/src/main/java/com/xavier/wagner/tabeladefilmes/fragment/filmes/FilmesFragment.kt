@@ -7,11 +7,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
+import com.synnapps.carouselview.ViewListener
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.api.ApiTMDBService
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
 import kotlinx.android.synthetic.main.filmes_fragment.*
-
+import kotlinx.android.synthetic.main.view_custom_carousel.view.*
 
 class FilmesFragment : Fragment() {
 
@@ -35,13 +36,23 @@ class FilmesFragment : Fragment() {
 
         esconderTeclado()
 
-        viewModel.buscarListaFilmes(ApiTMDBService.TypeFilmes.POPULAR, ApiTMDBService.KEY, ApiTMDBService.LANGUAGE, 1)
-        viewModel.buscarListaFilmes(ApiTMDBService.TypeFilmes.PROXIMOS, ApiTMDBService.KEY, ApiTMDBService.LANGUAGE, 1)
+        viewModel.buscarListaFilmes(
+                ApiTMDBService.TypeFilmes.POPULAR,
+                ApiTMDBService.KEY,
+                ApiTMDBService.LANGUAGE,
+                1
+        )
+        viewModel.buscarListaFilmes(
+                ApiTMDBService.TypeFilmes.PROXIMOS,
+                ApiTMDBService.KEY,
+                ApiTMDBService.LANGUAGE,
+                1
+        )
         viewModel.buscarListaFilmesCarousel(
-            ApiTMDBService.TypeFilmes.MAIS_VOTADOS,
-            ApiTMDBService.KEY,
-            ApiTMDBService.LANGUAGE,
-            1
+                ApiTMDBService.TypeFilmes.MAIS_VOTADOS,
+                ApiTMDBService.KEY,
+                ApiTMDBService.LANGUAGE,
+                1
         ){
             setupCarousel(it)
         }
@@ -76,16 +87,28 @@ class FilmesFragment : Fragment() {
 
     private fun setupCarousel(filmes: MutableList<Filme>){
         listaFilmesCarousel = if(filmes.size >= 6) filmes.subList(0, 6) else filmes
-        carouselFilmes.setImageListener { position, imageView ->
-            Picasso
-                .get()
-                .load("https://image.tmdb.org/t/p/w780/${listaFilmesCarousel.get(position).backdrop_path}")
-                .into(imageView)
-        }
+
+        carouselFilmes.setViewListener(viewListener)
+
         carouselFilmes.pageCount = listaFilmesCarousel.size
         carouselFilmes.setImageClickListener { position ->
             clickItemFilme(listaFilmesCarousel.get(position))
         }
+    }
+
+    var viewListener: ViewListener = ViewListener { position ->
+        val rootViewGroup = null
+        val customView = layoutInflater.inflate(R.layout.view_custom_carousel, rootViewGroup)
+        Picasso
+                .get()
+                .load("https://image.tmdb.org/t/p/" +
+                        "w${ApiTMDBService.IMAGE_WIDTH_SLIDE}/" +
+                        listaFilmesCarousel.get(position).backdrop_path
+                )
+                .into(customView.imageView)
+        customView.titleItemSlide.text = listaFilmesCarousel.get(position).title
+
+        customView
     }
 
     fun clickItemFilme(filme: Filme){

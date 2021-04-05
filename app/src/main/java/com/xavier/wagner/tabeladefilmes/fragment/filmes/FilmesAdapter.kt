@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.xavier.wagner.tabeladefilmes.R
+import com.xavier.wagner.tabeladefilmes.data.api.ApiTMDBService
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
 import kotlinx.android.synthetic.main.item_filme.view.*
 
@@ -27,7 +28,7 @@ class FilmesAdapter(
 
     fun setItemLista(listaFilmes: List<Filme>){
         if (listaFilmes.size > 5)
-            this.listaFilmes = listaFilmes.subList(listaFilmes.size - 5, listaFilmes.size)
+            this.listaFilmes = listaFilmes.subList(0, 6)
         else
             this.listaFilmes = listaFilmes
 
@@ -41,7 +42,9 @@ class FilmesAdapter(
         with(holder.itemView){
             Picasso
                 .get()
-                .load("https://image.tmdb.org/t/p/w154/${filme.poster_path}")
+                .load("https://image.tmdb.org/t/p/" +
+                        "w${ApiTMDBService.IMAGE_WIDTH_NORMAL}/${filme.poster_path}"
+                )
                 .into(posterImageView)
             layoutItemFilme.setOnClickListener { onClick(filme) }
         }

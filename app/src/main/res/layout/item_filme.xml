@@ -14,7 +14,7 @@
         android:id="@+id/posterImageView"
         android:layout_width="92dp"
         android:layout_height="138dp"
-        tools:src="@drawable/cartaz_filme"
+        tools:src="@drawable/img_filme"
         android:scaleType="fitXY"/>
 
 </androidx.cardview.widget.CardView>

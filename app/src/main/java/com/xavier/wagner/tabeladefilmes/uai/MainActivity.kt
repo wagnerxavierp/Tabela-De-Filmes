@@ -26,41 +26,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigation(){
         bottom_navigation.setOnNavigationItemSelectedListener  { item ->
+
+            val currentDestination =  nav_host_fragment.findNavController().currentDestination?.id
+
             when(item.itemId) {
                 R.id.filmesNavigation -> {
-                    val currentDestination =  nav_host_fragment.findNavController().currentDestination?.id
-                    if(currentDestination == R.id.pesquisarFragment){
+                    if(currentDestination != R.id.filmesFragment)
                         nav_host_fragment.findNavController()
-                                .navigate(R.id.action_pesquisarFragment_to_filmesFragment)
-                    }
-                    else if (currentDestination == R.id.contaFragment){
-                        nav_host_fragment.findNavController()
-                                .navigate(R.id.action_contaFragment_to_filmesFragment)
-                    }
+                                .navigate(R.id.filmesFragment)
                     true
                 }
                 R.id.pesquisarNavigation -> {
-                    val currentDestination =  nav_host_fragment.findNavController().currentDestination?.id
-                    if(currentDestination == R.id.contaFragment){
+                    if(currentDestination != R.id.pesquisarFragment)
                         nav_host_fragment.findNavController()
-                                .navigate(R.id.action_contaFragment_to_pesquisarFragment)
-                    }
-                    else if (currentDestination == R.id.filmesFragment){
-                        nav_host_fragment.findNavController()
-                                .navigate(R.id.action_filmesFragment_to_pesquisarFragment)
-                    }
+                                .navigate(R.id.pesquisarFragment)
                     true
                 }
                 R.id.contaNavigation -> {
-                    val currentDestination =  nav_host_fragment.findNavController().currentDestination?.id
-                    if(currentDestination == R.id.filmesFragment){
+                    if(currentDestination != R.id.contaFragment)
                         nav_host_fragment.findNavController()
-                                .navigate(R.id.action_filmesFragment_to_contaFragment)
-                    }
-                    else if (currentDestination == R.id.pesquisarFragment){
-                        nav_host_fragment.findNavController()
-                                .navigate(R.id.action_pesquisarFragment_to_contaFragment)
-                    }
+                                .navigate(R.id.contaFragment)
                     true
                 }else -> {
                     false
@@ -68,5 +53,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
