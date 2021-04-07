@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_filmesFragment_to_pesquisarFragment"
             app:destination="@id/pesquisarFragment" />
+        <action
+            android:id="@+id/action_filmesFragment_to_filmeDetalheFragment"
+            app:destination="@id/filmeDetalheFragment" />
     </fragment>
     <fragment
         android:id="@+id/contaFragment"
@@ -39,6 +42,15 @@
             app:destination="@id/contaFragment" />
         <action
             android:id="@+id/action_pesquisarFragment_to_filmesFragment"
+            app:destination="@id/filmesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filmeDetalheFragment"
+        android:name="com.xavier.wagner.tabeladefilmes.fragment.filmeDetalhes.FilmeDetalheFragment"
+        android:label="filme_detalhe_fragment"
+        tools:layout="@layout/filme_detalhe_fragment" >
+        <action
+            android:id="@+id/action_filmeDetalheFragment_to_filmesFragment"
             app:destination="@id/filmesFragment" />
     </fragment>
 

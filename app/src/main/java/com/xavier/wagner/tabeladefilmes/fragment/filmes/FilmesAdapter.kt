@@ -1,10 +1,11 @@
 package com.xavier.wagner.tabeladefilmes.fragment.filmes
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.api.ApiTMDBService
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
@@ -15,13 +16,15 @@ class FilmesAdapter(
 ) : RecyclerView.Adapter<FilmeViewHolder>() {
 
     private var listaFilmes: List<Filme>
+    private lateinit var context: Context
 
     init {
         listaFilmes = listOf()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmeViewHolder {
-        val view = LayoutInflater.from(parent.context)
+        context = parent.context
+        val view = LayoutInflater.from(context)
                 .inflate(R.layout.item_filme, parent, false)
         return FilmeViewHolder(view)
     }
@@ -40,8 +43,8 @@ class FilmesAdapter(
     override fun onBindViewHolder(holder: FilmeViewHolder, position: Int) {
         val filme = listaFilmes[position]
         with(holder.itemView){
-            Picasso
-                .get()
+            Glide
+                .with(context)
                 .load("https://image.tmdb.org/t/p/" +
                         "w${ApiTMDBService.IMAGE_WIDTH_NORMAL}/${filme.poster_path}"
                 )

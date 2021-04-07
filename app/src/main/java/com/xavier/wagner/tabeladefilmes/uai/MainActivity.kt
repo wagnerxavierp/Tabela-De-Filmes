@@ -53,4 +53,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        val currentDestination =  nav_host_fragment.findNavController().currentDestination?.id
+        if(currentDestination != R.id.filmesFragment){
+            bottom_navigation.selectedItemId = R.id.filmesNavigation
+        }else{
+            finish()
+        }
+    }
 }
+
+
+
+

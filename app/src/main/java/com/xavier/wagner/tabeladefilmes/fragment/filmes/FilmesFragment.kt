@@ -2,15 +2,16 @@ package com.xavier.wagner.tabeladefilmes.fragment.filmes
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.synnapps.carouselview.ViewListener
 import com.xavier.wagner.tabeladefilmes.R
 import com.xavier.wagner.tabeladefilmes.data.api.ApiTMDBService
 import com.xavier.wagner.tabeladefilmes.data.model.Filme
+import com.xavier.wagner.tabeladefilmes.fragment.filmeDetalhes.FilmeDetalheFragment
 import kotlinx.android.synthetic.main.filmes_fragment.*
 import kotlinx.android.synthetic.main.view_custom_carousel.view.*
 
@@ -99,10 +100,10 @@ class FilmesFragment : Fragment() {
     var viewListener: ViewListener = ViewListener { position ->
         val rootViewGroup = null
         val customView = layoutInflater.inflate(R.layout.view_custom_carousel, rootViewGroup)
-        Picasso
-                .get()
+        Glide
+                .with(requireContext())
                 .load("https://image.tmdb.org/t/p/" +
-                        "w${ApiTMDBService.IMAGE_WIDTH_SLIDE}/" +
+                        "w${ApiTMDBService.IMAGE_BACKDROP_WIDTH}/" +
                         listaFilmesCarousel.get(position).backdrop_path
                 )
                 .into(customView.imageView)
@@ -113,9 +114,9 @@ class FilmesFragment : Fragment() {
 
     fun clickItemFilme(filme: Filme){
         val bundle = Bundle()
-        bundle.putSerializable("filme", filme)
-        //findNavController().navigate(R.id.contaFragment, bundle)
-        Toast.makeText(requireContext(), filme.title, Toast.LENGTH_SHORT).show()
+        bundle.putSerializable(FilmeDetalheFragment.ARGUMENTO, filme)
+        findNavController().navigate(R.id.filmeDetalheFragment, bundle)
+        //Toast.makeText(requireContext(), filme.title, Toast.LENGTH_SHORT).show()
     }
 
     private fun esconderTeclado(){
