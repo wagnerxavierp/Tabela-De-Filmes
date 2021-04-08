@@ -10,10 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo2"
         android:supportsRtl="true"
+        android:name=".application.FilmeApplication"
         android:theme="@style/Theme.TabelaDeFilmes">
         <activity
             android:name=".fragment.cadastro.ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity android:name=".uai.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

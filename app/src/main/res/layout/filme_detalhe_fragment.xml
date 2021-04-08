@@ -16,6 +16,7 @@
             android:id="@+id/cartazDetalheImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleType="fitStart"
             tools:src="@drawable/img_slide"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +38,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+            <ImageView
+                android:id="@+id/favoritoImageView"
+                tools:src="@drawable/ic_favorite_border_24"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_margin="26dp"
+                android:saveEnabled="true"
+                android:clickable="true"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/titleDetalheTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:focusable="true" />
+
+
         <TextView
             android:id="@+id/descricaoDetalheTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="26dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="center"
+            tools:text="Descrição"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/titleDetalheTextView"
+            app:layout_constraintTop_toBottomOf="@id/favoritoImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
