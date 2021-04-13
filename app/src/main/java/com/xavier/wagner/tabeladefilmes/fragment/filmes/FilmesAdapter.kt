@@ -30,11 +30,7 @@ class FilmesAdapter(
     }
 
     fun setItemLista(listaFilmes: List<Filme>){
-        if (listaFilmes.size > 5)
-            this.listaFilmes = listaFilmes.subList(0, 6)
-        else
-            this.listaFilmes = listaFilmes
-
+        this.listaFilmes = listaFilmes
         this.notifyDataSetChanged()
     }
 

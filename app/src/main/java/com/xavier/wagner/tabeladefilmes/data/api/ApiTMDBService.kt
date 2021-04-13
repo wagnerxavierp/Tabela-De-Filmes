@@ -22,9 +22,10 @@ object ApiTMDBService {
     //const val IMAGE_HEIGTH_NORMAL = ( (150.0/100.0) * IMAGE_WIDTH_NORMAL ).toInt()
 
     object TypeFilmes{
-        const val POPULAR = "popular"
+        const val POPULARES = "popular"
         const val PROXIMOS = "upcoming"
         const val MAIS_VOTADOS = "top_rated"
+        const val CAROUSEL = "top_rated"
     }
 
 }

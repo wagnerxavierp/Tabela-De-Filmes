@@ -13,7 +13,7 @@ interface FilmesService {
             @Path("type") type: String,
             @Query("api_key") apiKey: String,
             @Query("language") language:String,
-            @Query("page") page:Int
+            @Query("page") page:Int = 1
     ): Call<FilmesResult>
 
 }

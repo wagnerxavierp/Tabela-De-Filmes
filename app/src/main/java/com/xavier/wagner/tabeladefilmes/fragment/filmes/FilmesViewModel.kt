@@ -11,11 +11,9 @@ import retrofit2.Response
 
 class FilmesViewModel : ViewModel() {
 
-    val listaFilmesPopularesLiveData = MutableLiveData<MutableList<Filme>>().apply { value = _listaFilmesPopulares }
-    private var _listaFilmesPopulares = mutableListOf<Filme>()
+    val listaFilmesPopularesLiveData = MutableLiveData<MutableList<Filme>>().apply { value = mutableListOf() }
 
-    val listaFilmesProximosLiveData = MutableLiveData<MutableList<Filme>>().apply { value = _listaFilmesProximos }
-    private var _listaFilmesProximos = mutableListOf<Filme>()
+    val listaFilmesProximosLiveData = MutableLiveData<MutableList<Filme>>().apply { value = mutableListOf() }
 
     fun buscarListaFilmes(type: String ,api_key: String, language: String, page: Int){
         ApiTMDBService.instance
@@ -26,12 +24,14 @@ class FilmesViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful){
                         response.body()?.let {
-                            if(type.equals(ApiTMDBService.TypeFilmes.POPULAR)){
-                                _listaFilmesPopulares = it.toFilmes() as MutableList<Filme>
-                                listaFilmesPopularesLiveData.value = _listaFilmesPopulares
-                            }else if(type.equals(ApiTMDBService.TypeFilmes.PROXIMOS)){
-                                _listaFilmesProximos = it.toFilmes() as MutableList<Filme>
-                                listaFilmesProximosLiveData.value = _listaFilmesProximos
+                            val listaDeFilmes = it.toFilmes() as MutableList<Filme>
+                            when(type){
+                                ApiTMDBService.TypeFilmes.POPULARES -> {
+                                    listaFilmesPopularesLiveData.value = listaDeFilmes
+                                }
+                                ApiTMDBService.TypeFilmes.PROXIMOS -> {
+                                    listaFilmesProximosLiveData.value = listaDeFilmes
+                                }
                             }
                         }
                     }
@@ -42,17 +42,23 @@ class FilmesViewModel : ViewModel() {
 
     }
 
-
-    fun buscarListaFilmesCarousel(type: String ,api_key: String, language: String, page: Int, resultCallback : (MutableList<Filme>) -> Unit){
+    fun buscarListaFilmesCarousel(
+            api_key: String,
+            language: String,
+            quantities: Int,
+            type: String = ApiTMDBService.TypeFilmes.CAROUSEL,
+            resultCallback : (MutableList<Filme>) -> Unit)
+    {
         ApiTMDBService.instance
-            .obterFilmes(type ,api_key, language, page)
+            .obterFilmes(type ,api_key, language)
             .enqueue(object : Callback<FilmesResult> {
                 override fun onResponse(
                     call: Call<FilmesResult>, response: Response<FilmesResult>
                 ) {
                     if (response.isSuccessful){
                         response.body()?.let {
-                            resultCallback(it.toFilmes() as MutableList<Filme>)
+                            val list = (it.toFilmes() as MutableList<Filme>)
+                            resultCallback(list.subList(0, quantities))
                         }
                     }
                 }

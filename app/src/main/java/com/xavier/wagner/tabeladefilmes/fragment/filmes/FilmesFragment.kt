@@ -3,6 +3,7 @@ package com.xavier.wagner.tabeladefilmes.fragment.filmes
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,6 @@ class FilmesFragment : Fragment() {
     private lateinit var viewModel: FilmesViewModel
     private lateinit var filmesPopularesAdapter: FilmesAdapter
     private lateinit var filmesProximosAdapter: FilmesAdapter
-    private lateinit var listaFilmesCarousel: MutableList<Filme>
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class FilmesFragment : Fragment() {
         esconderTeclado()
 
         viewModel.buscarListaFilmes(
-                ApiTMDBService.TypeFilmes.POPULAR,
+                ApiTMDBService.TypeFilmes.POPULARES,
                 ApiTMDBService.KEY,
                 ApiTMDBService.LANGUAGE,
                 1
@@ -50,15 +50,14 @@ class FilmesFragment : Fragment() {
                 1
         )
         viewModel.buscarListaFilmesCarousel(
-                ApiTMDBService.TypeFilmes.MAIS_VOTADOS,
                 ApiTMDBService.KEY,
                 ApiTMDBService.LANGUAGE,
-                1
+                7
         ){
             setupCarousel(it)
         }
-    }
 
+    }
 
     private fun setupRecyclerFilmesPopulares(){
         filmesPopularesAdapter = FilmesAdapter{ clickItemFilme(it) }
@@ -87,7 +86,24 @@ class FilmesFragment : Fragment() {
     }
 
     private fun setupCarousel(filmes: MutableList<Filme>){
-        listaFilmesCarousel = if(filmes.size >= 6) filmes.subList(0, 6) else filmes
+
+        val viewListener = ViewListener { position ->
+            val rootViewGroup = null
+            val customView = layoutInflater.inflate(R.layout.view_custom_carousel, rootViewGroup)
+            Glide
+                    .with(requireContext())
+                    .load("https://image.tmdb.org/t/p/" +
+                            "w${ApiTMDBService.IMAGE_BACKDROP_WIDTH}/" +
+                            filmes.get(position).backdrop_path
+                    )
+                    .into(customView.imageView)
+            customView.titleItemSlide.text = filmes.get(position).title
+
+            customView
+        }
+
+
+        val listaFilmesCarousel = if(filmes.size >= 6) filmes.subList(0, 6) else filmes
 
         carouselFilmes.setViewListener(viewListener)
 
@@ -97,26 +113,12 @@ class FilmesFragment : Fragment() {
         }
     }
 
-    var viewListener: ViewListener = ViewListener { position ->
-        val rootViewGroup = null
-        val customView = layoutInflater.inflate(R.layout.view_custom_carousel, rootViewGroup)
-        Glide
-                .with(requireContext())
-                .load("https://image.tmdb.org/t/p/" +
-                        "w${ApiTMDBService.IMAGE_BACKDROP_WIDTH}/" +
-                        listaFilmesCarousel.get(position).backdrop_path
-                )
-                .into(customView.imageView)
-        customView.titleItemSlide.text = listaFilmesCarousel.get(position).title
 
-        customView
-    }
 
     fun clickItemFilme(filme: Filme){
         val bundle = Bundle()
         bundle.putSerializable(FilmeDetalheFragment.ARGUMENTO, filme)
         findNavController().navigate(R.id.filmeDetalheFragment, bundle)
-        //Toast.makeText(requireContext(), filme.title, Toast.LENGTH_SHORT).show()
     }
 
     private fun esconderTeclado(){
