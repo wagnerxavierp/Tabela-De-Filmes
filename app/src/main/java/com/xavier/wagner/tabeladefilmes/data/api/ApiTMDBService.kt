@@ -16,6 +16,7 @@ object ApiTMDBService {
     const val LANGUAGE = "pt-BR"
 
     const val IMAGE_BACKDROP_WIDTH = 780
+    const val IMAGE_BACKDROP_HEIGTH = 438
     //const val IMAGE_HEIGTH_SLIDE = ( (56.28/100.0) * IMAGE_WIDTH_SLIDE ).toInt()
 
     const val IMAGE_WIDTH_NORMAL = 154

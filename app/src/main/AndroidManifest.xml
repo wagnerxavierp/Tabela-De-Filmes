@@ -13,9 +13,8 @@
         android:name=".application.FilmeApplication"
         android:theme="@style/Theme.TabelaDeFilmes">
         <activity
-            android:name=".fragment.cadastro.ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".uai.MainActivity">
+            android:name=".uai.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

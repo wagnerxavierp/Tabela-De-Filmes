@@ -7,20 +7,25 @@
 
     <TextView
         android:id="@+id/titleItemSlide"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="26dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        tools:text="Titulo do Filme longo"
+        android:layout_margin="35dp"
+        android:background="@drawable/backgroud_transparent"
         android:elevation="5dp"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        tools:text="Titulo do Filme longo" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
         tools:src="@drawable/img_slide"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
