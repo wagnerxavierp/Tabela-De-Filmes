@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:src="@drawable/logo2"
+            android:src="@mipmap/ic_logo"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             android:layout_width="60dp"
@@ -22,7 +22,8 @@
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/logo_da_td_filmes" />
 
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/carouselFilmes"
